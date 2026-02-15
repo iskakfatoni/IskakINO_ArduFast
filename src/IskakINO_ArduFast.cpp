@@ -1,5 +1,8 @@
 #include "IskakINO_ArduFast.h"
 
+// Definisi instance global
+IskakINO_ArduFast ArduFast;
+
 IskakINO::IskakINO() {
     for (uint8_t i = 0; i < 10; i++) _lastMillis[i] = 0;
 }
