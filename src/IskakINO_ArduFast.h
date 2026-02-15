@@ -1,3 +1,4 @@
+//
 #ifndef ISKAKINO_ARDUFAST_H
 #define ISKAKINO_ARDUFAST_H
 
