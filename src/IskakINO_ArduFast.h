@@ -4,6 +4,11 @@
 
 #include <Arduino.h>
 
+// Penanganan khusus jika board tidak mendefinisikan LED_BUILTIN (Sering terjadi di ESP32)
+#ifndef LED_BUILTIN
+  #define LED_BUILTIN 2 
+#endif
+
 // --- FastPin Template (Tetap di Header karena Template) ---
 template <uint8_t P>
 class FastPin {
