@@ -1,67 +1,96 @@
-#include "IskakINO_ArduFast.h"
+#ifndef ISKAKINO_ARDUFAST_H
+#define ISKAKINO_ARDUFAST_H
 
-IskakINO::IskakINO() {
-    for (uint8_t i = 0; i < 10; i++) _lastMillis[i] = 0;
-}
+#include <Arduino.h>
 
-void IskakINO::begin(uint32_t baud) {
-    #if ISKAKINO_LOG_LEVEL > LOG_NONE
-        Serial.begin(baud);
-        log(F("System Initialized"));
-    #endif
-}
+/**
+ * IskakINO-ArduFast Framework
+ * Optimized I/O and Task Management for AVR, ESP8266, & ESP32
+ */
 
-bool IskakINO::every(uint32_t interval, uint8_t id) {
-    if (id >= 10) return false;
-    uint32_t current = millis();
-    if (current - _lastMillis[id] >= interval) {
-        _lastMillis[id] = current;
-        return true;
+// --- 1. FastPin Template (Ultra Fast Digital I/O) ---
+template <uint8_t P>
+class FastPin {
+public:
+    void mode(uint8_t m) {
+        pinMode(P, m);
     }
-    return false;
-}
 
-void IskakINO::write(uint8_t pin, uint8_t val) {
-    digitalWrite(pin, val);
-}
+    void high() {
+        digitalWrite(P, HIGH);
+    }
 
-int IskakINO::readNorm(uint8_t pin) {
-    #if defined(ARDUINO_ARCH_ESP32)
-        return analogRead(pin) >> 2;
-    #else
-        return analogRead(pin);
-    #endif
-}
+    void low() {
+        digitalWrite(P, LOW);
+    }
 
-int IskakINO::readStable(uint8_t pin, uint8_t samples) {
-    uint32_t sum = 0;
-    for (uint8_t i = 0; i < samples; i++) sum += analogRead(pin);
-    return sum / samples;
-}
+    void toggle() {
+        digitalWrite(P, !digitalRead(P));
+    }
 
-void IskakINO::printPrefix(const __FlashStringHelper* type) {
-    Serial.print(F("["));
-    Serial.print(millis());
-    Serial.print(F("] ["));
-    Serial.print(type);
-    Serial.print(F("] "));
-}
+    bool read() {
+        return digitalRead(P);
+    }
+};
 
-void IskakINO::log(const __FlashStringHelper* msg) {
-    #if ISKAKINO_LOG_LEVEL >= LOG_INFO
-        printPrefix(F("INFO"));
-        Serial.println(msg);
-    #endif
-}
+// --- 2. Main Framework Class ---
+class IskakINO_ArduFast {
+private:
+    unsigned long _prevMillis[10]; // Kapasitas 10 Task (bisa ditambah)
 
-void IskakINO::log(const __FlashStringHelper* label, float val) {
-    #if ISKAKINO_LOG_LEVEL >= LOG_INFO
-        printPrefix(F("INFO"));
-        Serial.print(label);
-        Serial.print(F(": "));
-        Serial.println(val);
-    #endif
-}
+public:
+    IskakINO_ArduFast() {
+        for (int i = 0; i < 10; i++) _prevMillis[i] = 0;
+    }
 
-// Pre-instantiate object
-IskakINO ArduFast;
+    // Inisialisasi Serial & System
+    void begin(unsigned long baud = 115200) {
+        Serial.begin(baud);
+    }
+
+    // Multi-tasking Engine
+    bool every(unsigned long interval, uint8_t id) {
+        if (id >= 10) return false;
+        unsigned long current = millis();
+        if (current - _prevMillis[id] >= interval) {
+            _prevMillis[id] = current;
+            return true;
+        }
+        return false;
+    }
+
+    // Smart Analog (Normalized 0-1023)
+    int readNorm(uint8_t pin) {
+        int val = analogRead(pin);
+        #if defined(ESP32)
+            return val >> 2; // 12-bit to 10-bit
+        #else
+            return val;      // AVR/ESP8266 is already 10-bit
+        #endif
+    }
+
+    // Stable Analog with Oversampling
+    int readStable(uint8_t pin, uint8_t samples = 16) {
+        uint32_t sum = 0;
+        for (uint8_t i = 0; i < samples; i++) {
+            sum += readNorm(pin);
+        }
+        return (int)(sum / samples);
+    }
+
+    // Flash-Efficient Logging
+    void log(const __FlashStringHelper* msg, int val = -32768) {
+        Serial.print(F("[LOG] "));
+        Serial.print(msg);
+        if (val != -32768) {
+            Serial.print(F(": "));
+            Serial.print(val);
+        }
+        Serial.println();
+    }
+};
+
+// Deklarasi instance agar bisa dipakai di .ino (extern)
+extern IskakINO_ArduFast ArduFast;
+
+#endif // ISKAKINO_ARDUFAST_H
