@@ -1,18 +1,18 @@
 #include "IskakINO_ArduFast.h"
 
-// 1. Constructor: Inisialisasi semua timer ke 0
+// 1. Constructor
 IskakINO_ArduFast::IskakINO_ArduFast() {
     for (int i = 0; i < 10; i++) {
         _prevMillis[i] = 0;
     }
 }
 
-// 2. Memulai Serial
+// 2. Serial Begin
 void IskakINO_ArduFast::begin(unsigned long baud) {
     Serial.begin(baud);
 }
 
-// 3. Engine Multitasking (Non-Blocking)
+// 3. Task Manager
 bool IskakINO_ArduFast::every(unsigned long interval, uint8_t id) {
     if (id >= 10) return false;
     unsigned long current = millis();
@@ -23,17 +23,17 @@ bool IskakINO_ArduFast::every(unsigned long interval, uint8_t id) {
     return false;
 }
 
-// 4. Analog Read yang sudah Dinormalisasi (0-1023)
+// 4. Analog Normalized
 int IskakINO_ArduFast::readNorm(uint8_t pin) {
     int val = analogRead(pin);
     #if defined(ESP32)
-        return val >> 2; // Konversi 12-bit ke 10-bit
+        return val >> 2; // 12-bit ke 10-bit
     #else
-        return val;      // AVR & ESP8266 sudah 10-bit
+        return val;
     #endif
 }
 
-// 5. Analog Read Stabil (Oversampling)
+// 5. Analog Stable
 int IskakINO_ArduFast::readStable(uint8_t pin, uint8_t samples) {
     uint32_t sum = 0;
     for (uint8_t i = 0; i < samples; i++) {
@@ -42,7 +42,7 @@ int IskakINO_ArduFast::readStable(uint8_t pin, uint8_t samples) {
     return (int)(sum / samples);
 }
 
-// 6. Sistem Logging Efisien (Flash Memory)
+// 6. Logging
 void IskakINO_ArduFast::log(const __FlashStringHelper* msg, int val) {
     Serial.print(F("[LOG] "));
     Serial.print(msg);
@@ -53,5 +53,5 @@ void IskakINO_ArduFast::log(const __FlashStringHelper* msg, int val) {
     Serial.println();
 }
 
-// 7. Instansiasi Objek Global agar bisa dipanggil sebagai 'ArduFast'
+// 7. Definisi Instance Global
 IskakINO_ArduFast ArduFast;
