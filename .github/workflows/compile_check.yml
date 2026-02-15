@@ -24,15 +24,35 @@ jobs:
       - name: Setup Arduino CLI
         uses: arduino/setup-arduino-cli@v1
 
-      - name: Install Platforms
+      - name: Install Platforms (With Retry)
         run: |
           arduino-cli core update-index
+          
+          # Fungsi retry untuk mengatasi 502 Bad Gateway
+          install_with_retry() {
+            local n=1
+            local max=3
+            local delay=15
+            while true; do
+              "$@" && break || {
+                if [[ $n -lt $max ]]; then
+                  ((n++))
+                  echo "Command failed. Attempt $n/$max in $delay seconds..."
+                  sleep $delay;
+                else
+                  echo "The command has failed after $n attempts."
+                  return 1
+                fi
+              }
+            done
+          }
+
           if [ "${{ matrix.board }}" == "esp8266:esp8266:nodemcuv2" ]; then
             arduino-cli core update-index --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
-            arduino-cli core install esp8266:esp8266 --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
+            install_with_retry arduino-cli core install esp8266:esp8266 --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
           elif [ "${{ matrix.board }}" == "esp32:esp32:esp32" ]; then
             arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-            arduino-cli core install esp32:esp32 --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+            install_with_retry arduino-cli core install esp32:esp32 --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
           else
             arduino-cli core install arduino:avr
           fi
