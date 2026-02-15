@@ -1,16 +1,33 @@
-name: Compile Check
+name: Compile and Lint Check
 
 on:
   push:
     paths:
       - 'src/**'
       - 'examples/**'
+      - 'library.properties'
   pull_request:
     paths:
       - 'src/**'
       - 'examples/**'
+      - 'library.properties'
 
 jobs:
+  # --- JOB 1: Validasi Struktur Library (Arduino Lint) ---
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Arduino Lint
+        uses: arduino/arduino-lint-action@v1
+        with:
+          # Menampilkan warning tapi tidak menggagalkan build jika hanya warning ringan
+          fail-on-warnings: false 
+          path: ./
+
+  # --- JOB 2: Validasi Kompilasi Kode (Build) ---
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -28,7 +45,6 @@ jobs:
         run: |
           arduino-cli core update-index
           
-          # Fungsi retry untuk mengatasi 502 Bad Gateway
           install_with_retry() {
             local n=1
             local max=3
