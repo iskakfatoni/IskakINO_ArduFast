@@ -1,0 +1,31 @@
+name: Arduino Lint
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      # Langkah 1: Checkout kode ke dalam folder yang namanya LEGAL (tanpa titik)
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: IskakINO_ArduFast
+
+      # Langkah 2: Jalankan Arduino Lint
+      - name: Arduino Lint
+        uses: arduino/arduino-lint-action@v1
+        with:
+          path: ./IskakINO_ArduFast
+          # 'off' karena library belum didaftarkan di index resmi Arduino
+          library-manager: off
+          # 'strict' memastikan kode dan metadata mengikuti standar terbaik
+          compliance: strict
+
+      # Langkah 3: Verifikasi akhir (Opsional, untuk melihat struktur di log)
+      - name: Verify Structure
+        run: ls -R ./IskakINO_ArduFast
