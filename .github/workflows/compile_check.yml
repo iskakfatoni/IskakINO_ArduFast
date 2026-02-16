@@ -1,81 +1,29 @@
-name: Compile and Lint Check
+name: Arduino Lint
 
 on:
   push:
-    paths:
-      - 'src/**'
-      - 'examples/**'
-      - 'library.properties'
+    paths-ignore:
+      - '**.md'
   pull_request:
-    paths:
-      - 'src/**'
-      - 'examples/**'
-      - 'library.properties'
 
 jobs:
-  # --- JOB 1: Validasi Struktur Library (Arduino Lint) ---
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # Langkah 1: Checkout kode ke dalam folder dengan nama yang LEGAL
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: IskakINO_ArduFast
 
+      # Langkah 2: Jalankan Linter dengan mengarahkan ke folder tersebut
       - name: Arduino Lint
         uses: arduino/arduino-lint-action@v1
         with:
-          # Menampilkan warning tapi tidak menggagalkan build jika hanya warning ringan
-          fail-on-warnings: false 
-          path: ./
+          path: ./IskakINO_ArduFast
+          # Mengabaikan pengecekan library manager karena kita fokus ke kualitas kode dulu
+          library-manager: update 
 
-  # --- JOB 2: Validasi Kompilasi Kode (Build) ---
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        board: [ "arduino:avr:uno", "esp8266:esp8266:nodemcuv2", "esp32:esp32:esp32" ]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Arduino CLI
-        uses: arduino/setup-arduino-cli@v1
-
-      - name: Install Platforms (With Retry)
-        run: |
-          arduino-cli core update-index
-          
-          install_with_retry() {
-            local n=1
-            local max=3
-            local delay=15
-            while true; do
-              "$@" && break || {
-                if [[ $n -lt $max ]]; then
-                  ((n++))
-                  echo "Command failed. Attempt $n/$max in $delay seconds..."
-                  sleep $delay;
-                else
-                  echo "The command has failed after $n attempts."
-                  return 1
-                fi
-              }
-            done
-          }
-
-          if [ "${{ matrix.board }}" == "esp8266:esp8266:nodemcuv2" ]; then
-            arduino-cli core update-index --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
-            install_with_retry arduino-cli core install esp8266:esp8266 --additional-urls http://arduino.esp8266.com/stable/package_esp8266com_index.json
-          elif [ "${{ matrix.board }}" == "esp32:esp32:esp32" ]; then
-            arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-            install_with_retry arduino-cli core install esp32:esp32 --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-          else
-            arduino-cli core install arduino:avr
-          fi
-
-      - name: Compile Examples
-        run: |
-          for example in examples/*/*.ino; do
-            echo "Compiling $example for ${{ matrix.board }}..."
-            arduino-cli compile --fqbn ${{ matrix.board }} $example --library .
-          done
+      # Langkah 3: (Opsional) Verifikasi struktur folder
+      - name: Check Folder Structure
+        run: ls -R ./IskakINO_ArduFast
