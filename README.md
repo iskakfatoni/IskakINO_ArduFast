@@ -87,6 +87,40 @@ void loop() {
 }
 ```
 
+/**
+ * 📚 API REFERENCE - ISKAKINO ARDUFAST
+ * * Berikut adalah prototipe fungsi dan cara penggunaan library IskakINO-ArduFast.
+ * Gunakan referensi ini untuk memahami parameter dan fungsionalitas utama.
+ */
+
+// --- [ 1. MANAJEMEN TUGAS & WAKTU ] ---
+// Slot ID tersedia: 0-9. Memungkinkan multitasking tanpa delay().
+bool ArduFast.every(uint32_t interval_ms, uint8_t id);
+void ArduFast.begin(long baudrate);
+
+
+// --- [ 2. ANALOG & SENSOR ] ---
+// Fitur stabilisasi pembacaan analog (Oversampling & Mapping).
+int ArduFast.readStable(uint8_t pin);
+int ArduFast.mapAnalog(uint8_t pin, int outMin, int outMax);
+
+
+// --- [ 3. FAST DIGITAL I/O ] ---
+// Template-based I/O yang dieksekusi langsung pada level register.
+FastPin<PIN_NUMBER> PinName;
+
+void PinName.mode(uint8_t mode); // Mengatur arah data
+void PinName.high();             // Output HIGH
+void PinName.low();              // Output LOW
+void PinName.toggle();           // Membalikkan status (HIGH <-> LOW)
+bool PinName.read();             // Membaca input digital
+
+
+// --- [ 4. DEBUGGING & UTILITY ] ---
+// Mencetak pesan log ke Serial Monitor dengan prefix khusus.
+void ArduFast.log(const __FlashStringHelper* msg, long value);
+
+---
 ## 📊 Perbandingan Performa
 
 | Fungsi | Arduino Standar | IskakINO-ArduFast | Performa |
@@ -94,6 +128,7 @@ void loop() {
 | **Digital Write** | ~50-100 cycles | **1-2 cycles** | 🔥 Ekstrim |
 | **Analog Read** | Raw (Beda board) | **Normalized (0-1023)** | 💎 Konsisten |
 | **Memory** | RAM Hungry Strings | **Flash-Optimized** | 🍃 Ringan |
+---
 
 ## 🔧 Instalasi
 1. Download repository ini sebagai **.zip**.
