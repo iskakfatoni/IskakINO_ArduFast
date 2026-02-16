@@ -19,24 +19,25 @@ IskakINO-ArduFast adalah framework Arduino yang dirancang untuk kecepatan ekseku
 ```text
 IskakINO-ArduFast/
 ├── .github/
-│   └── workflows/          # Konfigurasi CI/CD (GitHub Actions)
-├── examples/               # Koleksi 10 contoh penggunaan library
-│   ├── 01_BasicIO/         # Dasar FastPin & Logging
-│   ├── 02_AdvancedAnalog/  # Pembacaan sensor stabil & normalisasi
-│   ├── 03_MultiTasking/    # Scheduler tanpa delay()
-│   ├── 04_Benchmark/       # Uji kecepatan FastPin vs digitalWrite
-│   ├── 05_EEPROM/          # Penyimpanan data permanen (Cross-platform)
-│   ├── 06_AdvancedPWM/     # Efek LED Breathing non-blocking
-│   ├── 07_SerialCommand/   # Kontrol interaktif via Serial Monitor
-│   ├── 08_ButtonDebounce/  # Input tombol fisik yang stabil
-│   ├── 09_StressTest/      # Uji beban 10 task sekaligus
-│   └── 10_WatchdogSafety/  # Sistem proteksi kesehatan task
-├── src/                    # Source code utama (Core)
-│   ├── IskakINO_ArduFast.h # Header utama & template FastPin
-│   └── IskakINO_ArduFast.cpp # Implementasi logic multitasking
-├── library.properties      # Metadata resmi untuk Arduino Library Manager
-├── keywords.txt            # Syntax highlighting untuk Arduino IDE
-└── README.md               # Dokumentasi utama (halaman ini)
+│   └── workflows/           # Konfigurasi CI/CD (GitHub Actions & Lint)
+├── examples/                # Koleksi 11 contoh penggunaan library
+│   ├── 01_BasicIO/          # Dasar FastPin & Logging
+│   ├── 02_AdvancedAnalog/   # Pembacaan sensor stabil & normalisasi
+│   ├── 03_MultiTasking/     # Scheduler tanpa delay()
+│   ├── 04_Benchmark/        # Uji kecepatan FastPin vs digitalWrite
+│   ├── 05_EEPROM/           # Penyimpanan data permanen (Cross-platform)
+│   ├── 06_AdvancedPWM/      # Efek LED Breathing non-blocking
+│   ├── 07_SerialCommand/    # Kontrol interaktif via Serial Monitor
+│   ├── 08_ButtonDebounce/   # Input tombol fisik yang stabil
+│   ├── 09_StressTest/       # Uji beban 10 task sekaligus (Max ID)
+│   ├── 10_WatchdogSafety/   # Sistem proteksi kesehatan task
+│   └── 11_UltimateBenchmark/# Head-to-Head: ArduFast vs Arduino.h
+├── src/                     # Source code utama (Core)
+│   ├── IskakINO_ArduFast.h  # Header utama & template FastPin
+│   └── IskakINO_ArduFast.cpp# Implementasi logic multitasking
+├── library.properties       # Metadata resmi untuk Arduino Library Manager
+├── keywords.txt             # Syntax highlighting untuk Arduino IDE
+└── README.md                # Dokumentasi utama (halaman ini)
 ```
 
 ## 🚀 Cara Penggunaan Cepat
