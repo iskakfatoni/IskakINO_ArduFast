@@ -33,6 +33,11 @@ public:
     int readNorm(uint8_t pin);
     int readStable(uint8_t pin, uint8_t samples = 16);
     void log(const __FlashStringHelper* msg, int val = -32768);
+    // --- TAMBAHKAN INI (Wrapper IO) ---
+    void pinMode(uint8_t pin, uint8_t mode);
+    void digitalWrite(uint8_t pin, uint8_t val);
+    int digitalRead(uint8_t pin);
+    // ----------------------------------
 };
 
 // Deklarasi instance agar bisa diakses global
