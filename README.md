@@ -1,6 +1,12 @@
 # 🚀 IskakINO-ArduFast
-**High-Performance & Lightweight Framework for AVR, ESP8266, and ESP32.**
+[![Arduino-Lint](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/arduino-lint.yml)
+[![Compile-Check](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/compile-check.yml/badge.svg)](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/compile-check.yml)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/iskakfatoni/IskakINO_ArduFast?color=blue&logo=github)](https://github.com/iskakfatoni/IskakINO_ArduFast/releases)
+[![Arduino Library Manager](https://img.shields.io/badge/Arduino-Library%20Manager-00979D?style=flat&logo=arduino)](https://www.arduino.cc/reference/en/libraries/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Framework](https://img.shields.io/badge/Framework-Arduino-00979D?logo=arduino)](https://www.arduino.cc/)
 
+**High-Performance & Lightweight Framework for AVR, ESP8266, and ESP32.**
 IskakINO-ArduFast adalah framework Arduino yang dirancang untuk kecepatan eksekusi maksimal dan sintaks yang bersih. Dengan menggabungkan teknik *Template Metaprogramming* dan *Direct Register Access*, framework ini memangkas overhead fungsi standar Arduino tanpa mengorbankan kemudahan penggunaan.
 
 ---
