@@ -56,3 +56,14 @@ void IskakINO_ArduFast::log(const __FlashStringHelper* msg, int val) {
 
 // 7. Definisi Instance Global
 IskakINO_ArduFast ArduFast;
+
+// Tambahkan di bagian bawah file .cpp Anda
+void IskakINO_ArduFast::pinMode(uint8_t pin, uint8_t mode) {
+    ::pinMode(pin, mode);
+}
+void IskakINO_ArduFast::digitalWrite(uint8_t pin, uint8_t val) {
+    ::digitalWrite(pin, val);
+}
+int IskakINO_ArduFast::digitalRead(uint8_t pin) {
+    return ::digitalRead(pin);
+}
