@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For IskakINO-ArduFast
+#######################################
+
+#######################################
+# Datatypes and Classes (KEYWORD1)
+#######################################
+ArduFast	KEYWORD1
+FastPin	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+every	KEYWORD2
+log	KEYWORD2
+readStable	KEYWORD2
+mapAnalog	KEYWORD2
+mode	KEYWORD2
+high	KEYWORD2
+low	KEYWORD2
+toggle	KEYWORD2
+read	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+# (Opsional jika ada konstanta khusus)
