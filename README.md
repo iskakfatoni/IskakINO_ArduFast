@@ -87,12 +87,10 @@ void loop() {
 }
 ```
 
-/**
- * 📚 API REFERENCE - ISKAKINO ARDUFAST
- * * Berikut adalah prototipe fungsi dan cara penggunaan library IskakINO-ArduFast.
- * Gunakan referensi ini untuk memahami parameter dan fungsionalitas utama.
- */
 
+## 📚 API REFERENCE - ISKAKINO ARDUFAST
+ * Berikut adalah prototipe fungsi dan cara penggunaan library IskakINO-ArduFast. Gunakan referensi ini untuk memahami parameter dan fungsionalitas utama.
+```cpp
 // --- [ 1. MANAJEMEN TUGAS & WAKTU ] ---
 // Slot ID tersedia: 0-9. Memungkinkan multitasking tanpa delay().
 bool ArduFast.every(uint32_t interval_ms, uint8_t id);
@@ -119,7 +117,7 @@ bool PinName.read();             // Membaca input digital
 // --- [ 4. DEBUGGING & UTILITY ] ---
 // Mencetak pesan log ke Serial Monitor dengan prefix khusus.
 void ArduFast.log(const __FlashStringHelper* msg, long value);
-
+```
 ---
 ## 📊 Perbandingan Performa
 
