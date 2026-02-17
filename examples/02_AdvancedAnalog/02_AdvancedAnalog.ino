@@ -1,5 +1,5 @@
 #include <IskakINO_ArduFast.h>
-
+IskakINO_ArduFast ArduFast;
 /**
  * IskakINO-ArduFast Example: 02_AdvancedAnalog
  * Mendemonstrasikan pembacaan sensor yang stabil (Anti-Noise)
