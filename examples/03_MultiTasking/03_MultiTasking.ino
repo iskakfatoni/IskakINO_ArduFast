@@ -12,7 +12,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
-
+IskakINO_ArduFast ArduFast;
 // Gunakan FastPin untuk kontrol LED yang sangat efisien
 FastPin<LED_BUILTIN> StatusLed;
 
