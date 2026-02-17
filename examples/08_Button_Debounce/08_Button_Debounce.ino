@@ -8,6 +8,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
+IskakINO_ArduFast ArduFast;
 
 // Gunakan FastPin untuk input yang responsif
 const uint8_t BUTTON_PIN = 4;
