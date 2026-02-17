@@ -8,6 +8,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
+IskakINO_ArduFast ArduFast;
 
 // Definisikan pin testing
 #define TEST_PIN 2
