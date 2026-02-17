@@ -8,7 +8,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
-
+IskakINO_ArduFast ArduFast;
 FastPin<LED_BUILTIN> MyLed;
 
 void setup() {
