@@ -10,7 +10,7 @@
 
 #include <IskakINO_ArduFast.h>
 #include <EEPROM.h>
-
+IskakINO_ArduFast ArduFast;
 // Struktur data yang ingin disimpan
 struct UserSettings {
     int bootCount;
