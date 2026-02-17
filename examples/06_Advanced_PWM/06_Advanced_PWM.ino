@@ -8,7 +8,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
-
+IskakINO_ArduFast ArduFast;
 // Gunakan pin yang mendukung PWM (simbol ~ di Arduino)
 // Untuk ESP32/ESP8266 hampir semua pin mendukung PWM
 #if defined(ESP32) || defined(ESP8266)
