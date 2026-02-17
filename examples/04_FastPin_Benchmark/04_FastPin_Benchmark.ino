@@ -9,7 +9,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
-
+IskakINO_ArduFast ArduFast;
 // Kita gunakan pin 2 sebagai target testing
 #define TEST_PIN 2
 FastPin<TEST_PIN> FastLed;
