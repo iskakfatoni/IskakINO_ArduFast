@@ -1,5 +1,5 @@
 #include <IskakINO_ArduFast.h>
-
+IskakINO_ArduFast ArduFast;
 // Definisi LED menggunakan FastPin untuk performa maksimal
 FastPin<LED_BUILTIN> MyLed;
 
