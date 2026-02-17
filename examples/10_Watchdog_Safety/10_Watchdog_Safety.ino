@@ -8,6 +8,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
+IskakINO_ArduFast ArduFast;
 
 long lastHeartbeat = 0;
 bool systemCritical = false;
