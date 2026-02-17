@@ -8,6 +8,7 @@
  */
 
 #include <IskakINO_ArduFast.h>
+IskakINO_ArduFast ArduFast;
 
 long loopCounter = 0;
 
