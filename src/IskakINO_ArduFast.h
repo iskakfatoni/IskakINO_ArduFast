@@ -41,6 +41,6 @@ public:
 };
 
 // Deklarasi instance agar bisa diakses global
-extern IskakINO_ArduFast ArduFast;
+//extern IskakINO_ArduFast ArduFast;
 
 #endif
