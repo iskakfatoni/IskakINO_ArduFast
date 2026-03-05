@@ -1,5 +1,4 @@
 # 🚀 IskakINO-ArduFast
-[![Arduino-Lint](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/arduino-lint.yml)
 [![Compile-Check](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/compile-check.yml/badge.svg)](https://github.com/iskakfatoni/IskakINO_ArduFast/actions/workflows/compile-check.yml)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/iskakfatoni/IskakINO_ArduFast?color=blue&logo=github)](https://github.com/iskakfatoni/IskakINO_ArduFast/releases)
 [![Arduino Library Manager](https://img.shields.io/badge/Arduino-Library%20Manager-00979D?style=flat&logo=arduino)](https://www.arduino.cc/reference/en/libraries/)
