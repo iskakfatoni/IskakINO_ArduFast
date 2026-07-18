@@ -10,7 +10,7 @@
 #include <IskakINO_ArduFast.h>
 IskakINO_ArduFast ArduFast;
 
-long lastHeartbeat = 0;
+unsigned long lastHeartbeat = 0; // unsigned long agar konsisten dgn millis() dan aman dari overflow rollover
 bool systemCritical = false;
 
 void setup() {

@@ -43,21 +43,32 @@ int IskakINO_ArduFast::readStable(uint8_t pin, uint8_t samples) {
     return (int)(sum / samples);
 }
 
-// 6. Logging
-void IskakINO_ArduFast::log(const __FlashStringHelper* msg, int val) {
-    Serial.print(F("[LOG] "));
-    Serial.print(msg);
-    if (val != -32768) {
-        Serial.print(F(": "));
-        Serial.print(val);
-    }
-    Serial.println();
+// 6. Analog Mapped (BARU di v1.0.1 — sebelumnya didokumentasikan tapi
+//    belum pernah diimplementasikan)
+int IskakINO_ArduFast::mapAnalog(uint8_t pin, int outMin, int outMax) {
+    int normalized = readNorm(pin);
+    return map(normalized, 0, 1023, outMin, outMax);
 }
 
-// 7. Definisi Instance Global
+// 7. Logging (dipecah jadi 2 overload di v1.0.1, ganti tipe value ke
+//    'long' supaya tidak terpotong di AVR, tempat 'int' hanya 16-bit
+//    sementara millis()/hasil counter biasanya butuh 32-bit)
+void IskakINO_ArduFast::log(const __FlashStringHelper* msg) {
+    Serial.print(F("[LOG] "));
+    Serial.println(msg);
+}
+
+void IskakINO_ArduFast::log(const __FlashStringHelper* msg, long val) {
+    Serial.print(F("[LOG] "));
+    Serial.print(msg);
+    Serial.print(F(": "));
+    Serial.println(val);
+}
+
+// 8. Definisi Instance Global
 //IskakINO_ArduFast ArduFast;
 
-// Tambahkan di bagian bawah file .cpp Anda
+// Wrapper IO standar (untuk pin dinamis / non-template, mis. dari variabel)
 void IskakINO_ArduFast::pinMode(uint8_t pin, uint8_t mode) {
     ::pinMode(pin, mode);
 }
